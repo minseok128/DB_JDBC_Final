@@ -1,111 +1,97 @@
-CREATE TABLE Department (
-    dept_name VARCHAR(50) PRIMARY KEY,
-    building VARCHAR(50),
-    budget DECIMAL
+-- Course table
+CREATE TABLE course (
+  course_id VARCHAR(8), 
+  title VARCHAR(50), 
+  credits NUMERIC(2,0),
+  PRIMARY KEY (course_id)
 );
 
-CREATE TABLE Course (
-    course_id VARCHAR(50) PRIMARY KEY,
-    title VARCHAR(100),
-    credits INT
+-- Section table
+CREATE TABLE section (
+  course_id VARCHAR(8), 
+  sec_id VARCHAR(8),
+  semester VARCHAR(6) CHECK (semester IN ('Fall', 'Winter', 'Spring', 'Summer')), 
+  year NUMERIC(4,0), 
+  PRIMARY KEY (course_id, sec_id, semester, year),
+  FOREIGN KEY (course_id) REFERENCES course(course_id)
+    ON DELETE CASCADE
 );
 
-CREATE TABLE Classroom (
-    building VARCHAR(50),
-    room_number VARCHAR(50),
-    capacity INT,
-    PRIMARY KEY (building, room_number)
+-- Course_dept table
+CREATE TABLE course_dept (
+  course_id VARCHAR(8),
+  dept_name VARCHAR(20),
+  PRIMARY KEY (course_id, dept_name),
+  FOREIGN KEY (course_id) REFERENCES course(course_id)
 );
 
-CREATE TABLE Time_slot (
-    time_slot_id VARCHAR(50) PRIMARY KEY,
-    day VARCHAR(10),
-    start_time TIME,
-    end_time TIME
+-- Time_slot table
+CREATE TABLE time_slot (
+  time_slot_id VARCHAR(4),
+  day VARCHAR(1),
+  start_time NUMERIC(2) CHECK (start_time >= 0 AND start_time < 24),
+  end_time NUMERIC(2) CHECK (end_time >= 0 AND end_time < 24),
+  PRIMARY KEY (time_slot_id, day, start_time)
 );
 
-CREATE TABLE Instructor (
-    ID VARCHAR(50) PRIMARY KEY,
-    name VARCHAR(100),
-    salary DECIMAL,
-    dept_name VARCHAR(50),
-    FOREIGN KEY (dept_name) REFERENCES Department(dept_name)
+-- Rooms table
+CREATE TABLE rooms (
+  course_id VARCHAR(8),
+  sec_id VARCHAR(8), 
+  year NUMERIC(4,0),
+  semester VARCHAR(6),
+  time_slot_id VARCHAR(4),
+  day VARCHAR(1),
+  start_time NUMERIC(2),
+  building VARCHAR(15),
+  room_number VARCHAR(7),
+  FOREIGN KEY (course_id, sec_id, semester, year) REFERENCES section(course_id, sec_id, semester, year),
+  FOREIGN KEY (time_slot_id, day, start_time) REFERENCES time_slot(time_slot_id, day, start_time)
 );
 
-CREATE TABLE Student (
-    ID VARCHAR(50) PRIMARY KEY,
-    name VARCHAR(100),
-    tot_cred INT,
-    dept_name VARCHAR(50),
-    FOREIGN KEY (dept_name) REFERENCES Department(dept_name)
+-- Student table
+CREATE TABLE student (
+  ID VARCHAR(5), 
+  name VARCHAR(20) NOT NULL, 
+  dept_name VARCHAR(20), 
+  tot_cred NUMERIC(3,0),
+  PRIMARY KEY (ID)
 );
 
-CREATE TABLE Section (
-    course_id VARCHAR(50),
-    sec_id VARCHAR(50),
-    year INT,
-    semester VARCHAR(20),
-    PRIMARY KEY (course_id, sec_id, year, semester),
-    FOREIGN KEY (course_id) REFERENCES Course(course_id)
+-- Instructor table
+CREATE TABLE instructor (
+  ID VARCHAR(5), 
+  name VARCHAR(20), 
+  dept_name VARCHAR(20), 
+  salary NUMERIC(8,2),
+  PRIMARY KEY (ID)
 );
 
-CREATE TABLE Teaches (
-    ID VARCHAR(50),
-    course_id VARCHAR(50),
-    sec_id VARCHAR(50),
-    year INT,
-    semester VARCHAR(20),
-    PRIMARY KEY (ID, course_id, sec_id, year, semester),
-    FOREIGN KEY (ID) REFERENCES Instructor(ID),
-    FOREIGN KEY (course_id, sec_id, year, semester) REFERENCES Section(course_id, sec_id, year, semester)
+-- Takes table
+CREATE TABLE takes (
+  ID VARCHAR(5), 
+  course_id VARCHAR(8),
+  sec_id VARCHAR(8), 
+  semester VARCHAR(6),
+  year NUMERIC(4,0),
+  grade VARCHAR(2),
+  PRIMARY KEY (ID, course_id, sec_id, semester, year),
+  FOREIGN KEY (course_id, sec_id, semester, year) REFERENCES section(course_id, sec_id, semester, year),
+  FOREIGN KEY (ID) REFERENCES student(ID)
 );
 
-CREATE TABLE Takes (
-    ID VARCHAR(50),
-    course_id VARCHAR(50),
-    sec_id VARCHAR(50),
-    year INT,
-    semester VARCHAR(20),
-    grade VARCHAR(5),
-    PRIMARY KEY (ID, course_id, sec_id, year, semester),
-    FOREIGN KEY (ID) REFERENCES Student(ID),
-    FOREIGN KEY (course_id, sec_id, year, semester) REFERENCES Section(course_id, sec_id, year, semester)
-);
-
-CREATE TABLE Project (
-    s_id VARCHAR(50),
-    course_id VARCHAR(50),
-    sec_id VARCHAR(50),
-    year INT,
-    semester VARCHAR(20),
-    num INT,
-    i_id VARCHAR(50),
-    score INT,
-    PRIMARY KEY (s_id, course_id, sec_id, year, semester, num),
-    FOREIGN KEY (s_id, course_id, sec_id, year, semester) REFERENCES Takes(ID, course_id, sec_id, year, semester),
-    FOREIGN KEY (i_id, course_id, sec_id, year, semester) REFERENCES Teaches(ID, course_id, sec_id, year, semester)
-);
-
-CREATE TABLE Course_dept (
-    course_id VARCHAR(50),
-    dept_name VARCHAR(50),
-    PRIMARY KEY (course_id, dept_name),
-    FOREIGN KEY (course_id) REFERENCES Course(course_id),
-    FOREIGN KEY (dept_name) REFERENCES Department(dept_name)
-);
-
-CREATE TABLE Prereq (
-    course_id VARCHAR(50),
-    prereq_id VARCHAR(50),
-    PRIMARY KEY (course_id, prereq_id),
-    FOREIGN KEY (course_id) REFERENCES Course(course_id),
-    FOREIGN KEY (prereq_id) REFERENCES Course(course_id)
-);
-
-CREATE TABLE Advisor (
-    s_id VARCHAR(50),
-    i_id VARCHAR(50),
-    PRIMARY KEY (s_id, i_id),
-    FOREIGN KEY (s_id) REFERENCES Student(ID),
-    FOREIGN KEY (i_id) REFERENCES Instructor(ID)
+-- Project table
+CREATE TABLE project (
+  s_id VARCHAR(5),
+  course_id VARCHAR(8),
+  sec_id VARCHAR(8),
+  semester VARCHAR(6),
+  year NUMERIC(4,0),
+  num NUMERIC(2,0),
+  name VARCHAR(50),
+  i_id VARCHAR(5),
+  max_score NUMERIC(3,0),
+  score NUMERIC(3,0),
+  PRIMARY KEY (s_id, course_id, sec_id, semester, year, num),
+  FOREIGN KEY (s_id, course_id, sec_id, semester, year) REFERENCES takes(ID, course_id, sec_id, semester, year)
 );
