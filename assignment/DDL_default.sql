@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS project, takes, student, instructor, course_dept, section, rooms, course, time_slot;
+
 -- Course table
 CREATE TABLE course (
   course_id VARCHAR(8), 
