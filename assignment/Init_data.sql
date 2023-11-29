@@ -1,3 +1,13 @@
+DELETE FROM project;
+DELETE FROM takes;
+DELETE FROM student;
+DELETE FROM instructor;
+DELETE FROM course_dept;
+DELETE FROM section;
+DELETE FROM rooms;
+DELETE FROM course;
+DELETE FROM time_slot;
+
 -- Course table
 INSERT INTO course (course_id, title, credits) VALUES 
 ('CSE101', 'Computer Science I', 4),
