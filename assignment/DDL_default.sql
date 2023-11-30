@@ -55,7 +55,7 @@ CREATE TABLE rooms (
 CREATE TABLE student (
   ID VARCHAR(5), 
   name VARCHAR(20) NOT NULL, 
-  dept_name VARCHAR(20), 
+  dept_name VARCHAR(50), 
   tot_cred NUMERIC(3,0),
   PRIMARY KEY (ID)
 );
@@ -64,7 +64,7 @@ CREATE TABLE student (
 CREATE TABLE instructor (
   ID VARCHAR(5), 
   name VARCHAR(20), 
-  dept_name VARCHAR(20), 
+  dept_name VARCHAR(50), 
   salary NUMERIC(8,2),
   PRIMARY KEY (ID)
 );

@@ -1,10 +1,10 @@
 DELETE FROM project;
 DELETE FROM takes;
-DELETE FROM student;
-DELETE FROM instructor;
+DELETE FROM rooms;
 DELETE FROM course_dept;
 DELETE FROM section;
-DELETE FROM rooms;
+DELETE FROM student;
+DELETE FROM instructor;
 DELETE FROM course;
 DELETE FROM time_slot;
 
@@ -25,14 +25,14 @@ INSERT INTO section (course_id, sec_id, semester, year) VALUES
 
 -- Course_dept table
 INSERT INTO course_dept (course_id, dept_name) VALUES 
-('CSE101', 'Computer Science Department'),
-('CSE101', 'English Department'),
-('CSE101', 'History Department'),
-('MAT101', 'Mathematics Department'),
-('MAT101', 'Computer Science Department'),
-('ENG101', 'English Department'),
-('ENG101', 'History Department'),
-('HIS101', 'History Department');
+('CSE101', 'Computer Science Dept'),
+('CSE101', 'English Dep'),
+('CSE101', 'History Dept'),
+('MAT101', 'Mathematics Dept'),
+('MAT101', 'Computer Science Dept'),
+('ENG101', 'English Dept'),
+('ENG101', 'History Dept'),
+('HIS101', 'History Dept');
 
 -- Time_slot table
 INSERT INTO time_slot (time_slot_id, day, start_time, end_time) VALUES 
@@ -61,51 +61,40 @@ INSERT INTO rooms (course_id, sec_id, year, semester, time_slot_id, day, start_t
 -- ENG101, S1, Spring 2021, Time Slot C
 ('ENG101', 'S1', 2021, 'Spring', 'C', 'Sat', 10, '310', '519');
 
--- 여기까지 함
-
 -- Student table
 INSERT INTO student (ID, name, dept_name, tot_cred) VALUES 
-('S5678', 'Chris Green', 'BioDept', 45),
-('S6789', 'Pat Lee', 'LitDept', 36),
-('S7890', 'Alex Kim', 'HistDept', 27),
-('S1234', 'John Doe', 'CompSci', 32),
-('S2345', 'Jane Smith', 'MathDept', 28),
-('S3456', 'Alice Johnson', 'CompSci', 20),
-('S4567', 'Bob Brown', 'PhysDept', 16);
-
+('01111', 'Minseok','Computer Science Dept', 73),
+('06789', 'Kiyoun', 'Computer Science Dept', 36),
+('07890', 'Alex', 'English Dep', 27),
+('02345', 'Smith', 'History Dept', 28),
+('04567', 'Bob', 'Mathematics Dept', 16);
 
 -- Instructor table
 INSERT INTO instructor (ID, name, dept_name, salary) VALUES 
-('I5678', 'Dr. Green', 'BioDept', 80000.00),
-('I6789', 'Dr. Lee', 'LitDept', 82000.00),
-('I7890', 'Dr. Kim', 'HistDept', 78000.00),
-('I1234', 'Dr. Smith', 'CompSci', 75000.00),
-('I2345', 'Dr. Jones', 'MathDept', 72000.00),
-('I3456', 'Dr. White', 'PhysDept', 70000.00),
-('I4567', 'Dr. Black', 'CompSci', 68000.00);
+('15678', 'Dr. Lee', 'English Dep', 80000.00),
+('16789', 'Dr. Kang', 'Computer Science Dept', 82000.00),
+('17890', 'Dr. Kim', 'History Dept', 78000.00),
+('11234', 'Dr. Peak', 'Mathematics Dept', 75000.00),
+('12345', 'Dr. Son', 'Computer Science Dept', 72000.00);
 
+-- 여기까지 됨,-- -- 
 
 -- Takes table
 INSERT INTO takes (ID, course_id, sec_id, semester, year, grade) VALUES 
-('S5678', 'BIO101', 'S3', 'Spring', 2023, 'A'),
-('S6789', 'ENGL101', 'L3', 'Winter', 2023, 'B'),
-('S7890', 'HIST101', 'L4', 'Summer', 2023, 'C'),
-('S1234', 'CS101', 'L1', 'Fall', 2023, 'A'),
-('S2345', 'MATH101', 'S1', 'Fall', 2023, 'B'),
-('S3456', 'CS102', 'L2', 'Spring', 2023, 'C'),
-('S4567', 'PHYS101', 'S2', 'Spring', 2023, 'D');
-
-
+('01111', 'CSE101', 'S0', 'Winter', 2023, 'A'),
+('06789', 'CSE101', 'S1', 'Winter', 2023, 'B'),
+('07890', 'ENG101', 'S1', 'Spring', 2021, 'C'),
+('02345', 'HIS101', 'S1', 'Fall', 2022, 'B+'),
+('04567', 'MAT101', 'S0', 'Fall', 2022, 'A-'),
+('01111', 'MAT101', 'S0', 'Fall', 2022, 'A');
 
 -- Project table
 INSERT INTO project (s_id, course_id, sec_id, semester, year, num, name, i_id, max_score, score) VALUES 
-('S1234', 'CS101', 'L1', 'Fall', 2023, 1, 'Project 1', 'I1234', 100, 95),
-('S2345', 'MATH101', 'S1', 'Fall', 2023, 2, 'Project 2', 'I2345', 100, 85),
-('S3456', 'CS102', 'L2', 'Spring', 2023, 3, 'Project 3', 'I3456', 100, 75),
-('S4567', 'PHYS101', 'S2', 'Spring', 2023, 4, 'Project 4', 'I4567', 100, 90),
-('S5678', 'BIO101', 'S3', 'Spring', 2023, 1, 'Bio Research', 'I5678', 100, 88),
-('S6789', 'ENGL101', 'L3', 'Winter', 2023, 1, 'Literature Review', 'I6789', 100, 92),
-('S7890', 'HIST101', 'L4', 'Summer', 2023, 1, 'Historical Analysis', 'I7890', 100, 85);
-
-
-
+('01111', 'CSE101', 'S0', 'Winter', 2023, 1, 'Data Structures Project I', '16789', 100, 90),
+('01111', 'CSE101', 'S0', 'Winter', 2023, 2, 'Algorithm Design I', '15678', 100, 95),
+('06789', 'CSE101', 'S1', 'Winter', 2023, 1, 'Algorithm Design I', '16789', 100, 85),
+('07890', 'ENG101', 'S1', 'Spring', 2021, 1, 'Literary Analysis', '15678', 100, 78),
+('02345', 'HIS101', 'S1', 'Fall', 2022, 1, 'Historical Research', '17890', 100, 82),
+('04567', 'MAT101', 'S0', 'Fall', 2022, 1, 'Advanced Calculus Project', '11234', 100, 88),
+('01111', 'MAT101', 'S0', 'Fall', 2022, 1, 'Basic Algebra I', '16789', 100, 35),
+('01111', 'MAT101', 'S0', 'Fall', 2022, 2, 'Linear Algebra Study', '11234', 100, 93);
