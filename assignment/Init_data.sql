@@ -15,7 +15,6 @@ INSERT INTO course (course_id, title, credits) VALUES
 ('ENG101', 'English Literature', 3),
 ('HIS101', 'World History', 3);
 
-
 -- Section table
 INSERT INTO section (course_id, sec_id, semester, year) VALUES 
 ('CSE101', 'S0', 'Winter', 2023),

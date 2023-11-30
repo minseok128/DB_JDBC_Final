@@ -22,7 +22,7 @@ CREATE TABLE section (
 -- Course_dept table
 CREATE TABLE course_dept (
   course_id VARCHAR(8),
-  dept_name VARCHAR(20),
+  dept_name VARCHAR(50),
   PRIMARY KEY (course_id, dept_name),
   FOREIGN KEY (course_id) REFERENCES course(course_id)
 );
@@ -30,7 +30,7 @@ CREATE TABLE course_dept (
 -- Time_slot table
 CREATE TABLE time_slot (
   time_slot_id VARCHAR(4),
-  day VARCHAR(1),
+  day VARCHAR(3),
   start_time NUMERIC(2) CHECK (start_time >= 0 AND start_time < 24),
   end_time NUMERIC(2) CHECK (end_time >= 0 AND end_time < 24),
   PRIMARY KEY (time_slot_id, day, start_time)
@@ -43,7 +43,7 @@ CREATE TABLE rooms (
   year NUMERIC(4,0),
   semester VARCHAR(6),
   time_slot_id VARCHAR(4),
-  day VARCHAR(1),
+  day VARCHAR(3),
   start_time NUMERIC(2),
   building VARCHAR(15),
   room_number VARCHAR(7),
