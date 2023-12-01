@@ -77,8 +77,6 @@ INSERT INTO instructor (ID, name, dept_name, salary) VALUES
 ('11234', 'Dr. Peak', 'Mathematics Dept', 75000.00),
 ('12345', 'Dr. Son', 'Computer Science Dept', 72000.00);
 
--- 여기까지 됨,-- -- 
-
 -- Takes table
 INSERT INTO takes (ID, course_id, sec_id, semester, year, grade) VALUES 
 ('01111', 'CSE101', 'S0', 'Winter', 2023, 'A'),
