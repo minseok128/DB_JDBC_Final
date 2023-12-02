@@ -11,7 +11,7 @@ public class Main {
     // 데이터베이스 연결 정보
     static final String DB_URL = "jdbc:mysql://localhost/assignment13?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     static final String USER = "root";
-    static final String PASS = "5858eoEO!";
+    static final String PASS = "1234";
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
