@@ -120,7 +120,7 @@ public class Main {
 
             try (ResultSet rs1 = pstmt1.executeQuery()) {
                 while (rs1.next()) {
-                    // SELECT  S.course_id, C.title, S.sec_id
+                    // SELECT S.course_id, C.title, S.sec_id
                     String course_id = rs1.getString("S.course_id");
                     String sec_id = rs1.getString("S.sec_id");
                     System.out.print("└ course id: " + course_id);
@@ -216,7 +216,7 @@ public class Main {
                             pstmt3.setString(5, semester);
                             try (ResultSet rs3 = pstmt3.executeQuery()) {
                                 while (rs3.next()) {
-                                    //P.num, P.name, P.max_score, I.name, P.score
+                                    // P.num, P.name, P.max_score, I.name, P.score
                                     System.out.print("\t\t└ project num: " + rs3.getString("P.num"));
                                     System.out.print(", name: " + rs3.getString("P.name"));
                                     System.out.print(", score: " + rs3.getInt("P.score"));
