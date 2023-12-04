@@ -136,4 +136,58 @@ public class Main {
             e.printStackTrace();
         }
     }
+
+    static void searchProject() {
+        String query1 = """
+                SELECT ID, name, dept_name
+                FROM student
+                WHERE ID = ?
+                """;
+        String query2 = """
+                SELECT T.course_id, C.title, T.sec_id, T.grade
+                FROM takes as T, course as C
+                WHERE T.course_id = C.course_id
+                AND (T.ID, T.year, T.semester) = (?, ?, ?)
+                """;
+        String query3 = """
+                SELECT P.num, P.name, P.max_score, I.name, P.score
+                FROM project as P, instructor as I
+                WHERE P.i_id = I.id
+                AND (P.s_id, P.course_id, P.sec_id, P.year, P.semester) = (?, ?, ?, ?, ?)
+                """;
+        String query4 = """
+                SELECT count(*), avg(score)
+                FROM project
+                WHERE (s_id, course_id, sec_id, year, semester) = (?, ?, ?, ?, ?)
+                """;
+        try {
+            PreparedStatement pstmt1 = conn.prepareStatement(query1);
+            PreparedStatement pstmt2 = conn.prepareStatement(query2);
+
+            System.out.print("┌ 연도와 학기를 입력하세요: ");
+            int year = sc.nextInt();
+            String semester = sc.next();
+            pstmt1.setInt(1, year);
+            pstmt1.setString(2, semester);
+
+            try (ResultSet rs1 = pstmt1.executeQuery()) {
+                while (rs1.next()) {
+                    String course_id = rs1.getString("course_id");
+                    System.out.print("└ course id: " + course_id);
+                    System.out.print(" | title: " + rs1.getString("title"));
+                    System.out.print(" | credits: " + rs1.getString("credits"));
+
+                    System.out.print(" | dept names: ");
+                    pstmt2.setString(1, course_id);
+                    try (ResultSet rs2 = pstmt2.executeQuery()) {
+                        while (rs2.next()) {
+                            System.out.print(rs2.getString("dept_name") + ", ");
+                        }
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
