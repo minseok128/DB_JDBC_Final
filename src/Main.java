@@ -13,9 +13,15 @@ public class Main {
     public static void main(String[] args) {
         try {
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            int command;
 
             while (true) {
-                searchCourse();
+                System.out.print("기능: ");
+                command = sc.nextInt();
+                if (command == 1)
+                    searchCourse();
+                else if (command == 2)
+                    sectionTimeAndClassroom();
                 System.out.println("\n");
             }
 
