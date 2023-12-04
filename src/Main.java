@@ -19,7 +19,7 @@ public class Main {
                 System.out.print("기능: ");
                 command = sc.nextInt();
                 if (command == 1)
-                    searchCourse();
+                    searchMixCourse();
                 else if (command == 2)
                     sectionTimeAndClassroom();
                 System.out.println("\n");
@@ -38,7 +38,7 @@ public class Main {
         }
     }
 
-    static void searchCourse() {
+    static void searchMixCourse() {
         String query1 = """
                 SELECT course_id, title, credits
                 FROM course
