@@ -4,7 +4,6 @@ import java.sql.*;
 import java.util.Scanner;
 
 public class Main {
-    // 데이터베이스 연결 정보
     static final String DB_URL = "jdbc:mysql://localhost/assignment13?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     static final String USER = "root";
     static final String PASS = "1234";
@@ -12,8 +11,6 @@ public class Main {
     static final Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-
-        // 데이터베이스 연결
         try {
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
@@ -78,7 +75,6 @@ public class Main {
                     }
                 }
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
