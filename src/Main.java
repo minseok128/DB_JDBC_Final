@@ -184,11 +184,32 @@ public class Main {
                 System.out.println(", dept name: " + rs1.getString("dept_name"));
                 try (ResultSet rs2 = pstmt2.executeQuery()) {
                     while (rs2.next()) {
-                        System.out.print("\t└ course id: " + rs2.getString("T.course_id"));
+                        String course_id = rs2.getString("T.course_id");
+                        String sec_id = rs2.getString("T.sec_id");
+                        System.out.print("\t└ course id: " + course_id);
                         System.out.print(", title: " + rs2.getString("C.title"));
-                        System.out.print(", sec id: " + rs2.getString("T.sec_id"));
+                        System.out.print(", sec id: " + sec_id);
                         System.out.println(", grade: " + rs2.getString("T.grade"));
 
+                        try {
+                            // AND (P.s_id, P.course_id, P.sec_id, P.year, P.semester) = (?, ?, ?, ?, ?)
+                            pstmt3.setString(1, s_id);
+                            pstmt3.setString(2, course_id);
+                            pstmt3.setString(3, sec_id);
+                            pstmt3.setInt(4, year);
+                            pstmt3.setString(5, semester);
+                            try (ResultSet rs3 = pstmt3.executeQuery()) {
+                                while (rs3.next()) {
+                                    //P.num, P.name, P.max_score, I.name, P.score
+                                    System.out.print("\t\t└ pro num: " + rs3.getString("P.num"));
+                                    System.out.print(", title: " + rs3.getString("P.name"));
+                                    System.out.print(", sec id: " + rs3.getString("T.sec_id"));
+                                    System.out.println(", grade: " + rs3.getString("T.grade"));
+                                }
+                            }
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
