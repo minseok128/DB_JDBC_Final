@@ -22,6 +22,8 @@ public class Main {
                     searchMixCourse();
                 else if (command == 2)
                     sectionTimeAndClassroom();
+                else if (command == 3)
+                    searchProject();
                 System.out.println("\n");
             }
 
@@ -163,26 +165,30 @@ public class Main {
         try {
             PreparedStatement pstmt1 = conn.prepareStatement(query1);
             PreparedStatement pstmt2 = conn.prepareStatement(query2);
+            PreparedStatement pstmt3 = conn.prepareStatement(query3);
+            PreparedStatement pstmt4 = conn.prepareStatement(query4);
 
-            System.out.print("┌ 연도와 학기를 입력하세요: ");
+            System.out.print("┌ 연도, 학기, 학번을 입력하세요: ");
             int year = sc.nextInt();
             String semester = sc.next();
-            pstmt1.setInt(1, year);
-            pstmt1.setString(2, semester);
+            String s_id = sc.next();
+            pstmt1.setString(1, s_id);
+            pstmt2.setString(1, s_id);
+            pstmt2.setInt(2, year);
+            pstmt2.setString(3, semester);
 
             try (ResultSet rs1 = pstmt1.executeQuery()) {
-                while (rs1.next()) {
-                    String course_id = rs1.getString("course_id");
-                    System.out.print("└ course id: " + course_id);
-                    System.out.print(" | title: " + rs1.getString("title"));
-                    System.out.print(" | credits: " + rs1.getString("credits"));
+                rs1.next();
+                System.out.print("ID: " + rs1.getString("ID"));
+                System.out.print(", name: " + rs1.getString("name"));
+                System.out.println(", dept name: " + rs1.getString("dept_name"));
+                try (ResultSet rs2 = pstmt2.executeQuery()) {
+                    while (rs2.next()) {
+                        System.out.print("\t└ course id: " + rs2.getString("T.course_id"));
+                        System.out.print(", title: " + rs2.getString("C.title"));
+                        System.out.print(", sec id: " + rs2.getString("T.sec_id"));
+                        System.out.println(", grade: " + rs2.getString("T.grade"));
 
-                    System.out.print(" | dept names: ");
-                    pstmt2.setString(1, course_id);
-                    try (ResultSet rs2 = pstmt2.executeQuery()) {
-                        while (rs2.next()) {
-                            System.out.print(rs2.getString("dept_name") + ", ");
-                        }
                     }
                 }
             }
