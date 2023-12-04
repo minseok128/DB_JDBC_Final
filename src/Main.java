@@ -20,11 +20,7 @@ public class Main {
         // 데이터베이스 연결
         try {
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            String QUERY_INFO = "SELECT * FROM student WHERE ID = ?";
-            String QUERY_TAKE = "SELECT T.course_id, C.title, T.sec_id, T.semester, T.year, T.grade " +
-                    "FROM takes AS T, course AS C " +
-                    "WHERE ID = ? AND T.course_id = C.course_id";
-
+            
             while (true) {
                 searchCourse();
                 System.out.println("\n");
