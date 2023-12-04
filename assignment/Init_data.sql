@@ -84,7 +84,8 @@ INSERT INTO takes (ID, course_id, sec_id, semester, year, grade) VALUES
 ('07890', 'ENG101', 'S1', 'Spring', 2021, 'C'),
 ('02345', 'HIS101', 'S1', 'Fall', 2022, 'B+'),
 ('04567', 'MAT101', 'S0', 'Fall', 2022, 'A-'),
-('01111', 'MAT101', 'S0', 'Fall', 2022, 'A');
+('01111', 'MAT101', 'S0', 'Fall', 2022, 'A'),
+('01111', 'HIS101', 'S1', 'Fall', 2022, 'B+');
 
 -- Project table
 INSERT INTO project (s_id, course_id, sec_id, semester, year, num, name, i_id, max_score, score) VALUES 
@@ -95,4 +96,5 @@ INSERT INTO project (s_id, course_id, sec_id, semester, year, num, name, i_id, m
 ('02345', 'HIS101', 'S1', 'Fall', 2022, 1, 'Historical Research', '17890', 100, 82),
 ('04567', 'MAT101', 'S0', 'Fall', 2022, 1, 'Advanced Calculus Project', '11234', 100, 88),
 ('01111', 'MAT101', 'S0', 'Fall', 2022, 1, 'Basic Algebra I', '16789', 100, 35),
-('01111', 'MAT101', 'S0', 'Fall', 2022, 2, 'Linear Algebra Study', '11234', 100, 93);
+('01111', 'MAT101', 'S0', 'Fall', 2022, 2, 'Linear Algebra Study', '11234', 100, 93),
+('01111', 'HIS101', 'S1', 'Fall', 2022, 1, 'Historical Research', '17890', 100, 35);
