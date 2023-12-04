@@ -16,7 +16,7 @@ public class Main {
             int command;
 
             while (true) {
-                System.out.print("기능: ");
+                System.out.print("조회(1:융합과목, 2.수업 시간 및 강의실, 3.프로젝트 수행결과, 4.종료): ");
                 command = sc.nextInt();
                 if (command == 1)
                     searchMixCourse();
@@ -24,6 +24,8 @@ public class Main {
                     sectionTimeAndClassroom();
                 else if (command == 3)
                     searchProject();
+                else if (command == 4)
+                    break;
                 System.out.println("\n");
             }
         } catch (SQLException e) {
@@ -60,10 +62,10 @@ public class Main {
             PreparedStatement pstmt1 = conn.prepareStatement(query1);
             PreparedStatement pstmt2 = conn.prepareStatement(query2);
 
-            System.out.print("┌ 연도와 학기를 입력하세요: ");
+            System.out.print("┌ 연도 학기: ");
             int year = sc.nextInt();
             String semester = sc.next();
-            
+
             // WHERE (S.year, S.semester) = (?, ?)
             pstmt1.setInt(1, year);
             pstmt1.setString(2, semester);
@@ -74,15 +76,15 @@ public class Main {
                     String course_id = rs1.getString("course_id");
                     System.out.print("└ course id: " + course_id);
                     System.out.print(" | title: " + rs1.getString("title"));
-                    System.out.print(" | credits: " + rs1.getString("credits"));
+                    System.out.println(" | credits: " + rs1.getString("credits"));
 
-                    // SELECT dept_name
-                    System.out.print(" | dept names: ");
+                    // WHERE course_id = ?
+                    System.out.println("\tdepartment list");
                     pstmt2.setString(1, course_id);
                     try (ResultSet rs2 = pstmt2.executeQuery()) {
                         while (rs2.next()) {
                             // SELECT dept_name
-                            System.out.print(rs2.getString("dept_name") + ", ");
+                            System.out.println("\t└ name: " + rs2.getString("dept_name"));
                         }
                     }
                 }
@@ -109,7 +111,7 @@ public class Main {
             PreparedStatement pstmt1 = conn.prepareStatement(query1);
             PreparedStatement pstmt2 = conn.prepareStatement(query2);
 
-            System.out.print("┌ 연도와 학기를 입력하세요: ");
+            System.out.print("┌ 연도 학기: ");
             int year = sc.nextInt();
             String semester = sc.next();
             // WHERE (S.year, S.semester) = (?, ?)
@@ -176,7 +178,7 @@ public class Main {
             PreparedStatement pstmt3 = conn.prepareStatement(query3);
             PreparedStatement pstmt4 = conn.prepareStatement(query4);
 
-            System.out.print("┌ 연도, 학기, 학번을 입력하세요: ");
+            System.out.print("┌ 연도 학기 학번: ");
             int year = sc.nextInt();
             String semester = sc.next();
             String s_id = sc.next();
