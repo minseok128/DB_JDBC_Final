@@ -238,7 +238,7 @@ public class Main {
                                 // SELECT count(*) as count, avg(score) as avg
                                 rs4.next();
                                 System.out.print("\t\t** total count: " + rs4.getInt("count"));
-                                System.out.println(", average score: " + rs4.getInt("avg"));
+                                System.out.println(", average score: " + rs4.getInt("avg") + " **");
                             }
                         } catch (SQLException e) {
                             e.printStackTrace();
