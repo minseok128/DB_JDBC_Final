@@ -201,10 +201,11 @@ public class Main {
                             try (ResultSet rs3 = pstmt3.executeQuery()) {
                                 while (rs3.next()) {
                                     //P.num, P.name, P.max_score, I.name, P.score
-                                    System.out.print("\t\t└ pro num: " + rs3.getString("P.num"));
-                                    System.out.print(", title: " + rs3.getString("P.name"));
-                                    System.out.print(", sec id: " + rs3.getString("T.sec_id"));
-                                    System.out.println(", grade: " + rs3.getString("T.grade"));
+                                    System.out.print("\t\t└ project num: " + rs3.getString("P.num"));
+                                    System.out.print(", name: " + rs3.getString("P.name"));
+                                    System.out.print(", score: " + rs3.getString("P.score"));
+                                    System.out.print("/" + rs3.getString("P.max_score"));
+                                    System.out.println(", instructor name: " + rs3.getString("I.name"));
                                 }
                             }
                         } catch (SQLException e) {
