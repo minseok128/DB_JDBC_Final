@@ -158,7 +158,7 @@ public class Main {
                 AND (P.s_id, P.course_id, P.sec_id, P.year, P.semester) = (?, ?, ?, ?, ?)
                 """;
         String query4 = """
-                SELECT count(*), avg(score)
+                SELECT count(*) as count, avg(score) as avg
                 FROM project
                 WHERE (s_id, course_id, sec_id, year, semester) = (?, ?, ?, ?, ?)
                 """;
@@ -203,10 +203,26 @@ public class Main {
                                     //P.num, P.name, P.max_score, I.name, P.score
                                     System.out.print("\t\t└ project num: " + rs3.getString("P.num"));
                                     System.out.print(", name: " + rs3.getString("P.name"));
-                                    System.out.print(", score: " + rs3.getString("P.score"));
-                                    System.out.print("/" + rs3.getString("P.max_score"));
+                                    System.out.print(", score: " + rs3.getInt("P.score"));
+                                    System.out.print("/" + rs3.getInt("P.max_score"));
                                     System.out.println(", instructor name: " + rs3.getString("I.name"));
                                 }
+                            }
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            // WHERE (s_id, course_id, sec_id, year, semester) = (?, ?, ?, ?, ?)
+                            pstmt4.setString(1, s_id);
+                            pstmt4.setString(2, course_id);
+                            pstmt4.setString(3, sec_id);
+                            pstmt4.setInt(4, year);
+                            pstmt4.setString(5, semester);
+                            try (ResultSet rs4 = pstmt4.executeQuery()) {
+                                // SELECT count(*) as count, avg(score) as avg
+                                rs4.next();
+                                System.out.print("\t\t** total count: " + rs4.getInt("count"));
+                                System.out.println(", average score: " + rs4.getInt("avg"));
                             }
                         } catch (SQLException e) {
                             e.printStackTrace();
