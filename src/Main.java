@@ -26,7 +26,6 @@ public class Main {
                     searchProject();
                 System.out.println("\n");
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -64,20 +63,25 @@ public class Main {
             System.out.print("┌ 연도와 학기를 입력하세요: ");
             int year = sc.nextInt();
             String semester = sc.next();
+            
+            // WHERE (S.year, S.semester) = (?, ?)
             pstmt1.setInt(1, year);
             pstmt1.setString(2, semester);
 
             try (ResultSet rs1 = pstmt1.executeQuery()) {
                 while (rs1.next()) {
+                    // SELECT course_id, title, credits
                     String course_id = rs1.getString("course_id");
                     System.out.print("└ course id: " + course_id);
                     System.out.print(" | title: " + rs1.getString("title"));
                     System.out.print(" | credits: " + rs1.getString("credits"));
 
+                    // SELECT dept_name
                     System.out.print(" | dept names: ");
                     pstmt2.setString(1, course_id);
                     try (ResultSet rs2 = pstmt2.executeQuery()) {
                         while (rs2.next()) {
+                            // SELECT dept_name
                             System.out.print(rs2.getString("dept_name") + ", ");
                         }
                     }
@@ -108,23 +112,27 @@ public class Main {
             System.out.print("┌ 연도와 학기를 입력하세요: ");
             int year = sc.nextInt();
             String semester = sc.next();
+            // WHERE (S.year, S.semester) = (?, ?)
             pstmt1.setInt(1, year);
             pstmt1.setString(2, semester);
 
             try (ResultSet rs1 = pstmt1.executeQuery()) {
                 while (rs1.next()) {
+                    // SELECT  S.course_id, C.title, S.sec_id
                     String course_id = rs1.getString("S.course_id");
                     String sec_id = rs1.getString("S.sec_id");
                     System.out.print("└ course id: " + course_id);
                     System.out.print(" | title: " + rs1.getString("C.title"));
                     System.out.println(" | section id: " + sec_id);
 
+                    // AND (R.course_id, R.sec_id, R.year, R.semester) = (?, ?, ?, ?)
                     pstmt2.setString(1, course_id);
                     pstmt2.setString(2, sec_id);
                     pstmt2.setInt(3, year);
                     pstmt2.setString(4, semester);
                     try (ResultSet rs2 = pstmt2.executeQuery()) {
                         while (rs2.next()) {
+                            // SELECT T.day, T.start_time, T.end_time, R.building, R.room_number
                             System.out.print("\t└ day: " + rs2.getString("T.day") + ", ");
                             System.out.print("start time: " + rs2.getString("T.start_time") + ", ");
                             System.out.print("end time: " + rs2.getString("T.end_time") + ", ");
@@ -172,18 +180,24 @@ public class Main {
             int year = sc.nextInt();
             String semester = sc.next();
             String s_id = sc.next();
+
+            // WHERE ID = ?
             pstmt1.setString(1, s_id);
+            // AND (T.ID, T.year, T.semester) = (?, ?, ?)
             pstmt2.setString(1, s_id);
             pstmt2.setInt(2, year);
             pstmt2.setString(3, semester);
 
             try (ResultSet rs1 = pstmt1.executeQuery()) {
+                // SELECT ID, name, dept_name
                 rs1.next();
                 System.out.print("ID: " + rs1.getString("ID"));
                 System.out.print(", name: " + rs1.getString("name"));
                 System.out.println(", dept name: " + rs1.getString("dept_name"));
+
                 try (ResultSet rs2 = pstmt2.executeQuery()) {
                     while (rs2.next()) {
+                        // SELECT T.course_id, C.title, T.sec_id, T.grade
                         String course_id = rs2.getString("T.course_id");
                         String sec_id = rs2.getString("T.sec_id");
                         System.out.print("\t└ course id: " + course_id);
