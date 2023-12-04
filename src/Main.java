@@ -68,11 +68,11 @@ public class Main {
             try (ResultSet rs1 = pstmt1.executeQuery()) {
                 while (rs1.next()) {
                     String course_id = rs1.getString("course_id");
-                    System.out.print("└ course_id: " + course_id);
+                    System.out.print("└ course id: " + course_id);
                     System.out.print(" | title: " + rs1.getString("title"));
                     System.out.print(" | credits: " + rs1.getString("credits"));
 
-                    System.out.print(" | dept_names: ");
+                    System.out.print(" | dept names: ");
                     pstmt2.setString(1, course_id);
                     try (ResultSet rs2 = pstmt2.executeQuery()) {
                         while (rs2.next()) {
@@ -111,16 +111,23 @@ public class Main {
 
             try (ResultSet rs1 = pstmt1.executeQuery()) {
                 while (rs1.next()) {
-                    String course_id = rs1.getString("course_id");
-                    System.out.print("└ course_id: " + course_id);
-                    System.out.print(" | title: " + rs1.getString("title"));
-                    System.out.print(" | credits: " + rs1.getString("credits"));
+                    String course_id = rs1.getString("S.course_id");
+                    String sec_id = rs1.getString("S.sec_id");
+                    System.out.print("└ course id: " + course_id);
+                    System.out.print(" | title: " + rs1.getString("C.title"));
+                    System.out.println(" | section id: " + sec_id);
 
-                    System.out.print(" | dept_names: ");
                     pstmt2.setString(1, course_id);
+                    pstmt2.setString(2, sec_id);
+                    pstmt2.setInt(3, year);
+                    pstmt2.setString(4, semester);
                     try (ResultSet rs2 = pstmt2.executeQuery()) {
                         while (rs2.next()) {
-                            System.out.print(rs2.getString("dept_name") + ", ");
+                            System.out.print("\t└ day: " + rs2.getString("T.day") + ", ");
+                            System.out.print("start time: " + rs2.getString("T.start_time") + ", ");
+                            System.out.print("end time: " + rs2.getString("T.end_time") + ", ");
+                            System.out.print("building: " + rs2.getString("R.building") + ", ");
+                            System.out.println("room no: " + rs2.getString("R.room_number"));
                         }
                     }
                 }
