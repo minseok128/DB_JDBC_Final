@@ -21,13 +21,14 @@ INSERT INTO section (course_id, sec_id, semester, year) VALUES
 ('CSE101', 'S1', 'Winter', 2023),
 ('MAT101', 'S0', 'Fall', 2022),
 ('HIS101', 'S1', 'Fall', 2022),
+('CSE101', 'S0', 'Fall', 2022),
 ('ENG101', 'S1', 'Spring', 2021);
 
 -- Course_dept table
 INSERT INTO course_dept (course_id, dept_name) VALUES 
 ('CSE101', 'Computer Science Dept'),
 ('CSE101', 'English Dep'),
-('CSE101', 'History Dept'),
+('CSE101', 'Mathematics Dept'),
 ('MAT101', 'Mathematics Dept'),
 ('MAT101', 'Computer Science Dept'),
 ('ENG101', 'English Dept'),
@@ -58,6 +59,10 @@ INSERT INTO rooms (course_id, sec_id, year, semester, time_slot_id, day, start_t
 -- HIS101, S1, Fall 2022, Time Slot B
 ('HIS101', 'S1', 2022, 'Fall', 'B', 'Tue', 9, '208', '109'),
 ('HIS101', 'S1', 2022, 'Fall', 'B', 'Tue', 15, '208', '108'),
+-- CSE101, S1, Fall 2022, Time Slot A
+('CSE101', 'S0', 2022, 'Fall', 'A', 'Mon', 11, '310', '721'),
+('CSE101', 'S0', 2022, 'Fall', 'A', 'Wen', 13, '310', 'B601'),
+('CSE101', 'S0', 2022, 'Fall', 'A', 'Fri', 15, '207', '111'),
 -- ENG101, S1, Spring 2021, Time Slot C
 ('ENG101', 'S1', 2021, 'Spring', 'C', 'Sat', 10, '310', '519');
 
@@ -85,16 +90,19 @@ INSERT INTO takes (ID, course_id, sec_id, semester, year, grade) VALUES
 ('02345', 'HIS101', 'S1', 'Fall', 2022, 'B+'),
 ('04567', 'MAT101', 'S0', 'Fall', 2022, 'A-'),
 ('01111', 'MAT101', 'S0', 'Fall', 2022, 'A'),
-('01111', 'HIS101', 'S1', 'Fall', 2022, 'B+');
+('01111', 'HIS101', 'S1', 'Fall', 2022, 'B+'),
+('01111', 'CSE101', 'S0', 'Fall', 2022, 'C-');
 
 -- Project table
 INSERT INTO project (s_id, course_id, sec_id, semester, year, num, name, i_id, max_score, score) VALUES 
-('01111', 'CSE101', 'S0', 'Winter', 2023, 1, 'Data Structures Project I', '16789', 100, 90),
-('01111', 'CSE101', 'S0', 'Winter', 2023, 2, 'Algorithm Design I', '15678', 100, 95),
+('01111', 'CSE101', 'S0', 'Winter', 2023, 1, 'Data Structures Project I', '16789', 50, 50),
+('01111', 'CSE101', 'S0', 'Winter', 2023, 2, 'Algorithm Design I', '15678', 50, 45),
 ('06789', 'CSE101', 'S1', 'Winter', 2023, 1, 'Algorithm Design I', '16789', 100, 85),
 ('07890', 'ENG101', 'S1', 'Spring', 2021, 1, 'Literary Analysis', '15678', 100, 78),
 ('02345', 'HIS101', 'S1', 'Fall', 2022, 1, 'Historical Research', '17890', 100, 82),
 ('04567', 'MAT101', 'S0', 'Fall', 2022, 1, 'Advanced Calculus Project', '11234', 100, 88),
 ('01111', 'MAT101', 'S0', 'Fall', 2022, 1, 'Basic Algebra I', '16789', 100, 35),
 ('01111', 'MAT101', 'S0', 'Fall', 2022, 2, 'Linear Algebra Study', '11234', 100, 93),
-('01111', 'HIS101', 'S1', 'Fall', 2022, 1, 'Historical Research', '17890', 100, 35);
+('01111', 'HIS101', 'S1', 'Fall', 2022, 1, 'Historical Research', '17890', 100, 35),
+('01111', 'CSE101', 'S0', 'Fall', 2022, 1, 'Data Structures Project I', '16789', 100, 11),
+('01111', 'CSE101', 'S0', 'Fall', 2022, 2, 'Algorithm Design I', '15678', 100, 20);
